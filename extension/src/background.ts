@@ -48,7 +48,7 @@ import AckMessageHandler from './handlers/video/ack-message-handler';
 import PublishCardHandler from './handlers/asbplayerv2/publish-card-handler';
 import { bindWebSocketClient, unbindWebSocketClient } from './services/web-socket-client-binding';
 
-chrome.storage.session.setAccessLevel({ accessLevel: 'TRUSTED_AND_UNTRUSTED_CONTEXTS' });
+//chrome.storage.session.setAccessLevel({ accessLevel: 'TRUSTED_AND_UNTRUSTED_CONTEXTS' });
 
 const settings = new SettingsProvider(new ExtensionSettingsStorage());
 

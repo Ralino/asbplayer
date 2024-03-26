@@ -57,7 +57,7 @@ export function PopupUi({ commands }: Props) {
 
     const handleOpenSidePanel = useCallback(async () => {
         // @ts-ignore
-        chrome.sidePanel.open({ windowId: (await chrome.windows.getLastFocused()).id });
+        browser.sidebarAction.open();
     }, []);
 
     const { requestingActiveTabPermission, tabRequestingActiveTabPermission } = useRequestingActiveTabPermission();

@@ -62,7 +62,8 @@ export default class UiFrame {
         this._client = new FrameBridgeClient(this._frame, this._fetchOptions);
         document.body.appendChild(this._frame);
         const doc = this._frame.contentDocument!;
-        doc.open();
+        // @ts-ignore see https://bugzilla.mozilla.org/show_bug.cgi?id=1613779#c1
+        doc.wrappedJSObject.open();
         doc.write(await this._html(this._language));
         doc.close();
         await this._client!.bind();

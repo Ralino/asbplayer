@@ -3,7 +3,6 @@
     "description": "__MSG_extensionDescription__",
     "version": "1.1.2",
     "manifest_version": 3,
-    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxmdAa3ymqAjLms43ympXqtyuJnC2bSYh70+5ZZmtyx/MsnGhTEdfbqtsp3BKxHbv0rPd49+Joacm1Shik5/mCppZ0h4I4ISMm983X01H6p/hfAzQYAcnvw/ZQNHAv1QgY9JiuyTBirCDoYB50Fxol/kI/0EviYXuX83KoYpjB0VGP/ssY9ocT//fQUbRmeLDJnciry8y6MduWXHzseOP99axQIjeVsNTE30L4fRN+ppX3aOkG/RFJNx0eI02qbLul3qw5dUuBK5GgMbYftwjHnDoOegnZYFr1sxRO1zsgmxdp/6du75RiDPRJOkPCz2GTrw4CX2FCywbDZlqaIpwqQIDAQAB",
     "default_locale": "en",
     "icons": {
         "16": "assets/icon16.png",
@@ -11,7 +10,7 @@
         "128": "assets/icon128.png"
     },
     "minimum_chrome_version": "116",
-    "permissions": ["tabs", "tabCapture", "activeTab", "storage", "contextMenus", "sidePanel", "offscreen"],
+    "permissions": ["tabs", "activeTab", "storage", "contextMenus", "offscreen"],
     "action": {
         "default_title": "asbplayer"
     },
@@ -20,10 +19,17 @@
         "open_in_tab": true
     },
     "background": {
-        "service_worker": "background.js"
+        "scripts": ["background.js"]
     },
-    "side_panel": {
-        "default_path": "side-panel.html"
+    "sidebar_action": {
+        "default_panel": "side-panel.html",
+        "default_icon": {
+            "16": "assets/icon16.png",
+            "48": "assets/icon48.png",
+            "128": "assets/icon128.png"
+        },
+        "default_title": "asbplayer",
+        "open_at_install": false
     },
     "content_scripts": [
         {
@@ -42,7 +48,7 @@
             "run_at": "document_start"
         },
         {
-            "matches": ["*://killergerbah.github.io/asbplayer*", "*://localhost:*/*"],
+            "matches": ["*://killergerbah.github.io/asbplayer*", "*://localhost:3000/asbplayer*"],
             "js": ["asbplayer.js"],
             "all_frames": true,
             "run_at": "document_start"

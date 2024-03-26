@@ -36,9 +36,8 @@ export default class ToggleSidePanelHandler {
         });
 
         if (!sidePanelOpen) {
-            chrome.windows
-                // @ts-ignore
-                .getLastFocused((window) => chrome.sidePanel.open({ windowId: window.id }));
+            // @ts-ignore
+            browser.sidebarAction.open();
         }
 
         return false;
