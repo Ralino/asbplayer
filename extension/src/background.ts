@@ -11,6 +11,8 @@ import HttpPostHandler from './handlers/video/http-post-handler';
 import VideoToAsbplayerCommandForwardingHandler from './handlers/video/video-to-asbplayer-command-forwarding-handler';
 import AsbplayerToVideoCommandForwardingHandler from './handlers/asbplayer/asbplayer-to-video-command-forwarding-handler';
 import AsbplayerV2ToVideoCommandForwardingHandler from './handlers/asbplayerv2/asbplayer-v2-to-video-command-forwarding-handler';
+import OverlayToVideoForwardingHandler from './handlers/asbplayer/overlay-to-video-forwarding-handler';
+import VideoToOverlayForwardingHandler from './handlers/asbplayer/video-to-overlay-forwarding-handler';
 import AsbplayerHeartbeatHandler from './handlers/asbplayerv2/asbplayer-heartbeat-handler';
 import RefreshSettingsHandler from './handlers/popup/refresh-settings-handler';
 import { CommandHandler } from './handlers/command-handler';
@@ -118,6 +120,8 @@ const handlers: CommandHandler[] = [
     new OpenExtensionShortcutsHandler(),
     new ExtensionCommandsHandler(),
     new AsbplayerV2ToVideoCommandForwardingHandler(),
+    new OverlayToVideoForwardingHandler(),
+    new VideoToOverlayForwardingHandler(),
     new RefreshSettingsHandler(tabRegistry, settings),
     new AudioBase64Handler(offscreenAudioRecorder),
     new CaptureVisibleTabHandler(),

@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react';
 interface Params {
     location?: {
         src: string;
-        tabId: number;
     };
 }
 
@@ -27,11 +26,11 @@ export const useMobileVideoOverlayModel = ({ location }: Params) => {
                 sender: 'asbplayer-mobile-overlay-to-video',
                 message: {
                     command: 'request-mobile-overlay-model',
-                    tabId: location.tabId,
                 },
                 src: location.src,
             };
-            const initialModel = await chrome.tabs.sendMessage(location.tabId, command);
+            console.debug("MobileVideoOverlay sending message:", command);
+            const initialModel = await chrome.runtime.sendMessage(command);
             setModel(initialModel);
         };
 
@@ -78,7 +77,7 @@ export const useMobileVideoOverlayModel = ({ location }: Params) => {
             if (message.sender !== 'asbplayer-video-to-mobile-overlay' || message.src !== location.src) {
                 return;
             }
-
+            console.debug("MobileVideoOverlay got message:", message);
             const command = message as VideoToMobileOverlayCommand<UpdateMobileOverlayModelMessage>;
             setModel(command.message.model);
         };

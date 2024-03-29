@@ -17,7 +17,6 @@ export class MobileVideoOverlayController {
     private _seekedListener?: () => void;
     private _forceHiding: boolean = false;
     private _showing: boolean = false;
-    private _tabId?: number;
     private _messageListener?: (
         message: any,
         sender: chrome.runtime.MessageSender,
@@ -105,7 +104,7 @@ export class MobileVideoOverlayController {
                 message.message.command === 'request-mobile-overlay-model'
             ) {
                 const command = message as MobileOverlayToVideoCommand<RequestMobileOverlayModelMessage>;
-                this._tabId = command.message.tabId;
+                console.debug("MobileOverlayController got message:", message);
 
                 if (command.src === this._context.video.src) {
                     this._model().then(sendResponse);
@@ -122,7 +121,7 @@ export class MobileVideoOverlayController {
     }
 
     async updateModel() {
-        if (!this._bound || this._tabId === undefined) {
+        if (!this._bound) {
             return;
         }
 
@@ -135,6 +134,7 @@ export class MobileVideoOverlayController {
             },
             src: this._context.video.src,
         };
+        console.debug("MobileVideoController sending message:", command);
         chrome.runtime.sendMessage(command);
     }
 

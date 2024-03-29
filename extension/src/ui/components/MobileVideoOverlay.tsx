@@ -13,6 +13,7 @@ import {
     ExtensionToVideoCommand,
     LoadSubtitlesMessage,
     MobileOverlayCommand,
+    MobileOverlayToVideoCommand,
     MobileOverlayModel,
     OffsetToVideoMessage,
     PostMineAction,
@@ -76,12 +77,13 @@ const MobileVideoOverlay = () => {
             return;
         }
 
-        const command: ExtensionToVideoCommand<CopySubtitleMessage> = {
-            sender: 'asbplayer-extension-to-video',
+        const command: MobileOverlayToVideoCommand<CopySubtitleMessage> = {
+            sender: 'asbplayer-mobile-overlay-to-video',
             message: { command: 'copy-subtitle', postMineAction: await settings.getSingle('clickToMineDefaultAction') },
             src: location.src,
         };
-        chrome.tabs.sendMessage(location.tabId, command);
+        console.debug("MobileVideoOverlay sending message:", command);
+        chrome.runtime.sendMessage(command);
     }, [location]);
 
     const handleLoadSubtitles = useCallback(() => {
@@ -89,12 +91,13 @@ const MobileVideoOverlay = () => {
             return;
         }
 
-        const command: ExtensionToVideoCommand<LoadSubtitlesMessage> = {
-            sender: 'asbplayer-extension-to-video',
+        const command: MobileOverlayToVideoCommand<LoadSubtitlesMessage> = {
+            sender: 'asbplayer-mobile-overlay-to-video',
             message: { command: 'load-subtitles' },
             src: location.src,
         };
-        chrome.tabs.sendMessage(location.tabId, command);
+        console.debug("MobileVideoOverlay sending message:", command);
+        chrome.runtime.sendMessage(command);
     }, [location]);
 
     const handleOffset = useCallback(
@@ -103,12 +106,13 @@ const MobileVideoOverlay = () => {
                 return;
             }
 
-            const command: ExtensionToVideoCommand<OffsetToVideoMessage> = {
-                sender: 'asbplayer-extension-to-video',
+            const command: MobileOverlayToVideoCommand<OffsetToVideoMessage> = {
+                sender: 'asbplayer-mobile-overlay-to-video',
                 message: { command: 'offset', value: offset },
                 src: location.src,
             };
-            chrome.tabs.sendMessage(location.tabId, command);
+            console.debug("MobileVideoOverlay sending message:", command);
+            chrome.runtime.sendMessage(command);
         },
         [location]
     );
